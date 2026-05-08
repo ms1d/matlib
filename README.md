@@ -3,6 +3,10 @@
 A header-only, multi-dimensional matrix library for CUDA and C++.
 Provides a template-based matrix structure with sizes defined at compile-time.
 
+## Dependencies
+
+- `ms1d/common` as a sibling
+
 ## Features
 
 - **CUDA Compatible**: All methods are marked `__host__ __device__`.
