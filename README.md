@@ -51,7 +51,7 @@ excluding row `row` and column `col`.
 
 The `det()` method uses a recursive **Laplace expansion** algorithm O(n!).
 It is intended for small matrices (e.g., 2x2, 3x3, 4x4) used in graphics and physics.
-Do not use this for large matrices, as it will cause significantp
+Do not use this for large matrices, as it will cause significant
 performance degradation or stack overflow.
 
 ## To-Be-Implemented (TBI)
