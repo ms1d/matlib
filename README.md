@@ -5,7 +5,9 @@ Provides a template-based matrix structure with sizes defined at compile-time.
 
 ## Dependencies
 
-- `ms1d/common` as a sibling
+- [ms1d/common](https://github.com/ms1d/common) as a sibling
+
+- [ms1d/veclib](https://github.com/ms1d/vec) as a sibling
 
 ## Features
 

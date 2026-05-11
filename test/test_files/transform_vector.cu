@@ -83,9 +83,9 @@ struct transform_vector {
 		}
 
 		vec<3> res = m * v;
-		assert(res.x == 5);
-		assert(res.y == 8);
-		assert(res.z == 11);
+		assert(res.data[0] == 5);
+		assert(res.data[1] == 8);
+		assert(res.data[2] == 11);
 	}
 };
 
