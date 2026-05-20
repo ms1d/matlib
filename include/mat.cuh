@@ -35,12 +35,13 @@
 //
 //		- (TBI) Inverse + LU decomposition
 
-template <size_t r, size_t c>
+template <size_t r, size_t c, typename num_T = float>
+requires (std::is_arithmetic_v<num_T>)
 struct mat {
 
 
 
-	float data[r][c];
+	num_T data[r][c];
 
 
 
@@ -104,9 +105,9 @@ struct mat {
 
 
 
-	__host__ __device__ constexpr float det() const requires(r == c && r == 2) { return data[0][0] * data[1][1] - data[0][1] * data[1][0]; }
-	__host__ __device__ constexpr float det() const requires(r == c && r > 2){
-		float det = 0;
+	__host__ __device__ constexpr num_T det() const requires(r == c && r == 2) { return data[0][0] * data[1][1] - data[0][1] * data[1][0]; }
+	__host__ __device__ constexpr num_T det() const requires(r == c && r > 2){
+		num_T det = 0;
 
 		int sign = 1;
 		for (size_t j = 0; j < c; j++) {
@@ -123,7 +124,7 @@ struct mat {
 	__host__ __device__ constexpr mat& transpose_inplace() requires(r == c) {
 		for (size_t i = 0; i < r; i++) {
 			for (size_t j = i+1; j < c; j++) {
-				float tmp = data[i][j];
+				num_T tmp = data[i][j];
 				data[i][j] = data[j][i];
 				data[j][i] = tmp;
 			}
@@ -148,7 +149,7 @@ struct mat {
 
 
 
-	__host__ __device__ constexpr mat& operator*=(float scalar) {
+	__host__ __device__ constexpr mat& operator*=(num_T scalar) {
 		for (size_t i = 0; i < r; i++) {
 			for (size_t j = 0; j < c; j++) {
 				data[i][j] *= scalar;
@@ -158,7 +159,7 @@ struct mat {
 		return *this;
 	}
 
-	__host__ __device__ constexpr mat operator*(float scalar) const {
+	__host__ __device__ constexpr mat operator*(num_T scalar) const {
 		mat m = *this;
 		m *= scalar;
 		return m;
@@ -170,7 +171,7 @@ struct mat {
 		vec<r> res;
 
 		for (size_t i = 0; i < r; ++i) {
-			float sum = 0;
+			num_T sum = 0;
 			for (size_t j = 0; j < c; ++j)
 				sum += data[i][j] * v.data[j];
 			res.data[i] = sum;
@@ -195,8 +196,9 @@ struct mat {
 
 };
 
-template <size_t r, size_t c>
-__host__ __device__ constexpr mat<r, c> operator*(float scalar, const mat<r, c>& m) {
+template <size_t r, size_t c, typename num_T = float>
+requires(std::is_arithmetic_v<num_T>)
+__host__ __device__ constexpr mat<r, c> operator*(num_T scalar, const mat<r, c>& m) {
 	return m * scalar;
 }
 
