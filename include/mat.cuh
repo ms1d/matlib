@@ -81,8 +81,8 @@ struct mat {
 
 
 
-	__host__ __device__ constexpr mat<r-1, c-1> get_minor(size_t row, size_t col) const requires(r > 1 && c > 1) {
-		mat<r-1,c-1> res;
+	__host__ __device__ constexpr mat<r-1,c-1,num_T> get_minor(size_t row, size_t col) const requires(r > 1 && c > 1) {
+		mat<r-1,c-1,num_T> res;
 		size_t curr_row = 0;
 
 		for (size_t i = 0; i < r; i++) {
@@ -111,7 +111,7 @@ struct mat {
 
 		int sign = 1;
 		for (size_t j = 0; j < c; j++) {
-			mat<r-1,c-1> minor = get_minor(0, j);
+			mat<r-1,c-1,num_T> minor = get_minor(0, j);
 			det += sign * data[0][j] * minor.det();
 			sign *= -1;
 		}
@@ -135,8 +135,8 @@ struct mat {
 
 
 
-	__host__ __device__ constexpr mat<c,r> transpose() const {
-		mat<c,r> res;
+	__host__ __device__ constexpr mat<c,r,num_T> transpose() const {
+		mat<c,r,num_T> res;
 
 		for (size_t i = 0; i < c; i++) {
 			for (size_t j = 0; j < r; j++) {
@@ -198,13 +198,13 @@ struct mat {
 
 template <size_t r, size_t c, typename num_T = float>
 requires(std::is_arithmetic_v<num_T>)
-__host__ __device__ constexpr mat<r, c> operator*(num_T scalar, const mat<r, c>& m) {
+__host__ __device__ constexpr mat<r,c,num_T> operator*(num_T scalar, const mat<r,c,num_T>& m) {
 	return m * scalar;
 }
 
-template<size_t r1, size_t r2, size_t c1, size_t c2>
-__host__ __device__ constexpr mat<r1, c2> operator*(const mat<r1, c1>& m1, const mat<r2, c2>& m2) requires(c1 == r2) {
-	mat<r1,c2> res{}; // init data to 0
+template<size_t r1, size_t r2, size_t c1, size_t c2, num_T>
+__host__ __device__ constexpr mat<r1,c2,num_T> operator*(const mat<r1,c1,num_T>& m1, const mat<r2,c2,num_T>& m2) requires(c1 == r2) {
+	mat<r1,c2,num_T> res{}; // init data to 0
 
 	for (size_t i = 0; i < r1; ++i) {
 		for (size_t k = 0; k < c1; ++k) {
