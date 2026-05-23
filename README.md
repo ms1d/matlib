@@ -19,6 +19,10 @@ Provides a template-based matrix structure with sizes defined at compile-time.
 
 - **Determinants**: Supports square matrices using Laplace expansion.
 
+- **Trivially copyable**: Allows for more efficient copies of large matrices.
+
+- **Multi-type**: Allows for any arithmetic type to be used as a template parameter.
+
 ## Method Signatures
 
 ### Constructors and Basic Ops
