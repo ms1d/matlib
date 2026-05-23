@@ -202,7 +202,7 @@ __host__ __device__ constexpr mat<r,c,num_T> operator*(num_T scalar, const mat<r
 	return m * scalar;
 }
 
-template<size_t r1, size_t r2, size_t c1, size_t c2, num_T>
+template<size_t r1, size_t r2, size_t c1, size_t c2, typename num_T = float>
 __host__ __device__ constexpr mat<r1,c2,num_T> operator*(const mat<r1,c1,num_T>& m1, const mat<r2,c2,num_T>& m2) requires(c1 == r2) {
 	mat<r1,c2,num_T> res{}; // init data to 0
 

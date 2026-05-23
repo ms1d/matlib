@@ -59,7 +59,7 @@ struct sub_mat {
 
 		mat<3,3> res1 = m1 - m2, res2 = m2 - m1;
 
-		assert(res1 == -1 * res2);
+		assert(res1 == -1.0f * res2);
 		assert(res1.data[0][0] == 0);
 		assert(res1.data[0][1] == 1);
 		assert(res1.data[0][2] == 2);
