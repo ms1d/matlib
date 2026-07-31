@@ -3,11 +3,11 @@
 A header-only, multi-dimensional matrix library for CUDA and C++.
 Provides a template-based matrix structure with sizes defined at compile-time.
 
-## Dependencies
+## CMake FetchContent Dependencies
 
-- [ms1d/commonlib](https://github.com/ms1d/commonlib) as a sibling
+- [ms1d/commonlib](https://github.com/ms1d/commonlib)
 
-- [ms1d/veclib](https://github.com/ms1d/veclib) as a sibling
+- [ms1d/veclib](https://github.com/ms1d/veclib)
 
 ## Features
 
